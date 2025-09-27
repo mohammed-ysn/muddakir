@@ -1,0 +1,41 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Config {
+  id         Int      @id @default(1)
+  totalPages Int      @default(604)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+model Page {
+  id           Int           @id @default(autoincrement())
+  pageNumber   Int           @unique
+  memorisation Memorisation?
+  revisions    Revision[]
+}
+
+model Memorisation {
+  id        Int      @id @default(autoincrement())
+  pageId    Int      @unique
+  page      Page     @relation(fields: [pageId], references: [id])
+  date      DateTime @default(now())
+  status    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Revision {
+  id        Int      @id @default(autoincrement())
+  pageId    Int
+  page      Page     @relation(fields: [pageId], references: [id])
+  date      DateTime @default(now())
+  quality   Int
+  createdAt DateTime @default(now())
+}

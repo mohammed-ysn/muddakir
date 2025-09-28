@@ -26,7 +26,6 @@ model Memorisation {
   pageId    Int      @unique
   page      Page     @relation(fields: [pageId], references: [id])
   date      DateTime @default(now())
-  status    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

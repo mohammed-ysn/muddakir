@@ -2,27 +2,44 @@
 
 Quran memorisation tracker.
 
-## Getting Started
+## Installation
+
+```bash
+# Build the Docker image
+docker build -t muddakir .
+
+# Install CLI wrapper globally
+sudo cp muddakir.sh /usr/local/bin/muddakir
+sudo chmod +x /usr/local/bin/muddakir
+```
+
+## Usage
+
+```bash
+# Run from anywhere
+muddakir --help
+```
+
+## Data Location
+
+- **Database:** `~/.muddakir/muddakir.db` (SQLite)
+- Data persists in your home directory
+- Can be customised with `MUDDAKIR_DATA` environment variable
+
+## Development
 
 ```bash
 # Start development environment
 docker-compose up
 
-# Run CLI commands
+# Run CLI commands in dev
 docker-compose exec app npx ts-node src/index.ts --help
 
 # Stop
 docker-compose down
 ```
 
-## Data Location
-
-- **Database:** `data/muddakir.db` (SQLite)
-- **Config:** `.env`
-
-Database persists across container restarts via volume mount.
-
-## Prisma Commands
+### Prisma Commands (Development)
 
 ```bash
 # Generate Prisma client

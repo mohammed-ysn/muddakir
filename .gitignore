@@ -1,5 +1,6 @@
 data/*.db
 data/*.db-journal
+prisma/data/
 MVP.md
 
 # Created by https://www.toptal.com/developers/gitignore/api/node

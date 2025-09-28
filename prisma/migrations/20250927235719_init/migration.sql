@@ -1,0 +1,40 @@
+-- CreateTable
+CREATE TABLE "Config" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT DEFAULT 1,
+    "totalPages" INTEGER NOT NULL DEFAULT 604,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Page" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "pageNumber" INTEGER NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "Memorisation" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "pageId" INTEGER NOT NULL,
+    "date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "status" TEXT NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" DATETIME NOT NULL,
+    CONSTRAINT "Memorisation_pageId_fkey" FOREIGN KEY ("pageId") REFERENCES "Page" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateTable
+CREATE TABLE "Revision" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "pageId" INTEGER NOT NULL,
+    "date" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "quality" INTEGER NOT NULL,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "Revision_pageId_fkey" FOREIGN KEY ("pageId") REFERENCES "Page" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Page_pageNumber_key" ON "Page"("pageNumber");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "Memorisation_pageId_key" ON "Memorisation"("pageId");

@@ -15,15 +15,21 @@ async function main() {
   const config = await prisma.config.findUnique({ where: { id: 1 } });
   const totalPages = config?.totalPages || 604;
 
-  for (let i = 1; i <= totalPages; i++) {
-    await prisma.page.upsert({
-      where: { pageNumber: i },
-      update: {},
-      create: { pageNumber: i },
-    });
-  }
+  const existingCount = await prisma.page.count();
 
-  console.log(`Seeded ${totalPages} pages`);
+  if (existingCount === 0) {
+    const pages = Array.from({ length: totalPages }, (_, i) => ({
+      pageNumber: i + 1,
+    }));
+
+    await prisma.page.createMany({
+      data: pages,
+    });
+
+    console.log(`Seeded ${totalPages} pages`);
+  } else {
+    console.log(`Database already seeded with ${existingCount} pages`);
+  }
 }
 
 main()

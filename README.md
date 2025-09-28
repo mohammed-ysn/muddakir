@@ -9,15 +9,15 @@ Quran memorisation tracker.
 docker build -t muddakir .
 
 # Install CLI wrapper globally
-sudo cp muddakir.sh /usr/local/bin/muddakir
-sudo chmod +x /usr/local/bin/muddakir
+sudo cp mdk.sh /usr/local/bin/mdk
+sudo chmod +x /usr/local/bin/mdk
 ```
 
 ## Usage
 
 ```bash
 # Run from anywhere
-muddakir --help
+mdk --help
 ```
 
 ## Data Location

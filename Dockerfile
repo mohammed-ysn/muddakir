@@ -4,12 +4,14 @@ WORKDIR /app
 
 COPY package*.json ./
 
-RUN npm ci --only=production
+RUN npm install
 
+COPY tsconfig.json ./
 COPY prisma ./prisma
+COPY src ./src
 
 RUN npx prisma generate
 
-COPY dist ./dist
+ENV DATABASE_URL="file:/app/data/muddakir.db"
 
-CMD ["node", "dist/index.js"]
+ENTRYPOINT ["npx", "ts-node", "src/index.ts"]
